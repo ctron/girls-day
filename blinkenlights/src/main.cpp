@@ -40,8 +40,8 @@ void loop() {
     digitalWrite(LED2, LOW);
   }
 
-  delay(1000);
+  delay(500);
   digitalWrite(LED1, LOW);
-  delay(1000);
+  delay(500);
   digitalWrite(LED1, HIGH);
 }
