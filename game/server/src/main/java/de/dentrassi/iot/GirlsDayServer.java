@@ -32,7 +32,7 @@ import io.vertx.mqtt.messages.MqttPublishMessage;
 
 public class GirlsDayServer implements Server {
 
-    public static final String TOPIC_PREFIX = "/GirlsDay2017/redhat/munich/";
+    public static final String TOPIC_PREFIX = System.getProperty("prefix", "/GirlsDay2017/redhat/munich/");
 
     private static final Logger logger = LoggerFactory.getLogger(GirlsDayServer.class);
 
