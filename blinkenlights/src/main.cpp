@@ -11,9 +11,9 @@
 #include <Arduino.h>
 #include <SPI.h>
 
-#define LED1 5
-#define LED2 4
-#define BUTTON 12
+#define LED1 D1
+#define LED2 D2
+#define BUTTON D6
 
 void setup() {
 
@@ -35,9 +35,9 @@ void loop() {
 
   bool clicked = digitalRead(BUTTON);
   if ( clicked ) {
-    digitalWrite(LED2, HIGH);
-  } else {
     digitalWrite(LED2, LOW);
+  } else {
+    digitalWrite(LED2, HIGH);
   }
 
   delay(500);
