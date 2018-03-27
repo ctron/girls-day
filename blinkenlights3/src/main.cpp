@@ -1,5 +1,5 @@
 /********************************************************************************
-* Copyright (c) 2017 Red Hat Inc and others
+* Copyright (c) 2017, 2018 Red Hat Inc and others
 *
 * This program and the accompanying materials are made available under the
 * terms of the Eclipse Public License 2.0 which is available at
@@ -11,42 +11,52 @@
 #include <Arduino.h>
 #include <SPI.h>
 
-#define LED1 D1
-#define LED2 D2
+#define LED_RED D1
+#define LED_YELLOW D2
+#define LED_GREEN D5
 #define BUTTON D6
-#define LED3 D5
 
 void setup() {
 
   Serial.begin(9600);
   Serial.println();
 
-  pinMode(LED1, OUTPUT);
-  pinMode(LED2, OUTPUT);
-  pinMode(LED3, OUTPUT);
+  pinMode(LED_RED, OUTPUT);
+  pinMode(LED_YELLOW, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
 
   pinMode(BUTTON, INPUT);
 
-  digitalWrite(LED1, LOW);
-  digitalWrite(LED2, LOW);
-  digitalWrite(LED3, HIGH);
+  digitalWrite(LED_RED, HIGH);
+  digitalWrite(LED_YELLOW, LOW);
+  digitalWrite(LED_GREEN, LOW);
 
   Serial.println("Los geht's");
+}
+
+void switch_to_green () {
+  digitalWrite(LED_YELLOW, HIGH);
+  delay(2000);
+  digitalWrite(LED_RED, LOW);
+  digitalWrite(LED_YELLOW, LOW);
+  digitalWrite(LED_GREEN, HIGH);
+}
+
+void switch_to_red () {
+  digitalWrite(LED_YELLOW, HIGH);
+  digitalWrite(LED_GREEN, LOW);
+  delay(2000);
+  digitalWrite(LED_RED, HIGH);
+  digitalWrite(LED_YELLOW, LOW);
 }
 
 void loop() {
 
   bool clicked = digitalRead(BUTTON);
   if ( clicked ) {
-    digitalWrite(LED2, LOW);
-    digitalWrite(LED3, LOW);
-  } else {
-    digitalWrite(LED2, HIGH);
+    switch_to_green ();
+    delay(5000);
+    switch_to_red();
   }
 
-  delay(500);
-  digitalWrite(LED1, LOW);
-  delay(500);
-  digitalWrite(LED1, HIGH);
-  digitalWrite(LED3, HIGH);
 }
