@@ -13,5 +13,4 @@ To create a new Fedora Girls Day spin:
 
 # create persistent partition and write to USB stick
     umount /dev/sdb1
-# time sudo livecd-iso-to-disk --format --efi --resetmbr --home-size-mb 1000 --unencrypted-home --label "GirlsDay" F27-x86_64-LIVEGIRLSDAY.iso /dev/sdb
     time sudo livecd-iso-to-disk --format --resetmbr --home-size-mb 1000 --unencrypted-home --label "GirlsDay" F28-x86_64-LIVEGIRLSDAY.iso /dev/sdb
