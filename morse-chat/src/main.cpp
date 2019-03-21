@@ -20,18 +20,15 @@
 #define LED_GREEN D5
 #define BUTTON D6
 
-#define WIFI_SSID "Red Hat Guest"
+#define WIFI_SSID "" /* CHANGE WIFI NAME HERE */
 #define WIFI_PASSWORD "" /* INSERT WIFI PASSWORD HERE */
 
-#define SIGNAL_LOCAL Munich
-#define SIGNAL_REMOTE Berlin
+#define SIGNAL_LOCAL "SectorZZ9PluralZAlpha" /* CHANGE LOCAL LOCATION  */
+#define SIGNAL_REMOTE "Islington" /* CHANGE REMOTE LOCATION */
 
 #define MQTT_TOPIC_PREFIX "/GirlsDay/redhat/"
 #define MQTT_SERVER "iot.eclipse.org"
 #define MQTT_PORT 1883
-
-#define str(s) #s
-#define name(s) str(s)
 
 WiFiClient client;
 
@@ -48,16 +45,6 @@ void MQTT_connect();
 void signalChangedLocal(uint32_t);
 void signalChangedRemote(uint32_t);
 
-String prefix() {
-  String prefix = String(MQTT_TOPIC_PREFIX);
-  prefix.concat("/");
-
-  prefix.concat(WiFi.macAddress());
-
-  prefix.replace(':', '-');
-  return prefix;
-}
-
 String * topicClickLocal;
 String * topicClickRemote;
 
@@ -65,8 +52,8 @@ void setup() {
 
   Serial.begin(9600);
   Serial.println();
-  Serial.println("Local as: " name(SIGNAL_LOCAL));
-  Serial.println("Remote as: " name(SIGNAL_REMOTE));
+  Serial.println("Local as: " SIGNAL_LOCAL);
+  Serial.println("Remote as: " SIGNAL_REMOTE);
 
   pinMode(LED_RED, OUTPUT);
   pinMode(LED_YELLOW, OUTPUT);
@@ -83,11 +70,11 @@ void setup() {
   WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
-  topicClickLocal = new String(prefix());
-  topicClickLocal->concat("/click/" name(SIGNAL_LOCAL) );
+  topicClickLocal = new String(MQTT_TOPIC_PREFIX);
+  topicClickLocal->concat("click/" SIGNAL_LOCAL );
 
-  topicClickRemote = new String(prefix());
-  topicClickRemote->concat("/click/" name(SIGNAL_REMOTE) );
+  topicClickRemote = new String(MQTT_TOPIC_PREFIX);
+  topicClickRemote->concat("click/" SIGNAL_REMOTE );
 
   clickedPublish = new Adafruit_MQTT_Publish(&mqtt, topicClickLocal->c_str());
   signalLocal = new Adafruit_MQTT_Subscribe(&mqtt, topicClickLocal->c_str());
