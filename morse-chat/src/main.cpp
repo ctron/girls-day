@@ -40,7 +40,7 @@ Adafruit_MQTT_Subscribe * signalRemote;
 
 uint32_t state = 0;
 
-void MQTT_connect();
+void connectMqtt();
 
 void signalChangedLocal(uint32_t);
 void signalChangedRemote(uint32_t);
@@ -88,8 +88,11 @@ void setup() {
   Serial.println(WiFi.macAddress());
 
   while ( !WiFi.isConnected() ) {
+    digitalWrite(LED_YELLOW, !digitalRead(LED_YELLOW));
     delay(100);
   }
+
+  digitalWrite(LED_YELLOW, LOW);
 
   Serial.println("WiFi connected!");
 
@@ -104,9 +107,20 @@ bool lastClicked = false;
 void loop() {
 
   if(!mqtt.connected()) {
+
     digitalWrite(LED_GREEN, LOW);
     digitalWrite(LED_YELLOW, LOW);
-    MQTT_connect();
+
+    connectMqtt();
+
+    digitalWrite(LED_GREEN, HIGH);
+    digitalWrite(LED_YELLOW, HIGH);
+    digitalWrite(LED_RED, HIGH);
+    delay(1000);
+    digitalWrite(LED_GREEN, LOW);
+    digitalWrite(LED_YELLOW, LOW);
+    digitalWrite(LED_RED, LOW);
+
   }
 
   mqtt.processPackets(10);
@@ -135,7 +149,7 @@ void signalChangedRemote(uint32_t state) {
   digitalWrite(LED_GREEN, state>0 ? HIGH : LOW);
 }
 
-void MQTT_connect() {
+void connectMqtt() {
   int8_t ret;
 
   // Return if already connected.
@@ -145,18 +159,21 @@ void MQTT_connect() {
 
   Serial.print("Connecting to MQTT... ");
 
-  uint8_t retries = 3;
+  uint8_t retries = 30;
   while ((ret = mqtt.connect()) != 0) { // connect will return 0 for connected
        Serial.println(mqtt.connectErrorString(ret));
        Serial.println("Retrying MQTT connection in 5 seconds...");
        mqtt.disconnect();
-       delay(5000);  // wait 5 seconds
+       delay(500);  // wait 5 seconds
        retries--;
        if (retries == 0) {
          // basically die and wait for WDT to reset me
          while (1);
        }
+       digitalWrite(LED_GREEN, !digitalRead(LED_GREEN));
   }
+
+  digitalWrite(LED_GREEN, LOW);
 
   Serial.println("MQTT Connected!");
 }
