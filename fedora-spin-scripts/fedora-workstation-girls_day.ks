@@ -6,16 +6,19 @@ part / --size 7120 --fstype ext4
 
 # added for girls day
 atom
+#codium
 fritzing
+chkconfig
 clang
 mc
-python2
-python2-virtualenv
+#python2
+#python2-virtualenv
 gnome-tweak-tool
 gnome-shell-extension-topicons-plus.noarch
 vim
 hunspell-de
-libreoffice-langpack-de
+hunspell-en
+#libreoffice-langpack-de
 
 -gnome-classic-session
 -abrt*
@@ -29,15 +32,30 @@ libreoffice-langpack-de
 -evolution-help
 -evolution-ews
 -gnome-getting-started-docs
--libreoffice-help-en
--libreoffice-help-de
+#-libreoffice-help-en
+#-libreoffice-help-de
+-langpacks-core-en
+-langpacks-en
+-f31-backgrounds-gnome
+-gnome-backgrounds
+-fedora-workstation-backgrounds
+-desktop-backgrounds-gnome
+-gnome-maps
+-gnome-contacts
+-gnome-weather
+-simple-scan
+-sane-backends-drivers-scanners
+-gnome-boxes
+-libreoffice-*
+-unoconv
+
 
 %end
 
 %post --nochroot
 #touch $INSTALL_ROOT/this-is-install-root
 #touch $LIVE_ROOT/this-is-live-root
-cp /root/fedora-girlsday-respin/redhat_girlsday_2019.png $INSTALL_ROOT/usr/share/backgrounds/
+cp /root/fedora-girlsday-respin/redhat_girlsday_2020.png $INSTALL_ROOT/usr/share/backgrounds/
 cp /root/fedora-girlsday-respin/platformio-ide.tar.gz $INSTALL_ROOT/root/
 %end
 
@@ -78,11 +96,11 @@ default-zoom-level='standard'
 
 ## set the default background
 [org/gnome/desktop/background]
-picture-uri='file:///usr/share/backgrounds/redhat_girlsday_2019.png'
+picture-uri='file:///usr/share/backgrounds/redhat_girlsday_2020.png'
 
 ## set the default background
 [org/gnome/desktop/screensaver]
-picture-uri='file:///usr/share/backgrounds/redhat_girlsday_2019.png'
+picture-uri='file:///usr/share/backgrounds/redhat_girlsday_2020.png'
 
 # show Icons on desktop
 [org/gnome/desktop/background]
