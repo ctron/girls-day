@@ -177,7 +177,7 @@ fi
 # add girlsday user with no passwd
 action "Adding live user" useradd \$USERADDARGS -c "Girls Day" girlsday
 passwd -d girlsday > /dev/null
-usermod -aG wheel girlsday > /dev/null
+usermod -aG wheel,dialout girlsday > /dev/null
 
 # Remove root password lock
 passwd -d root > /dev/null

@@ -1,1 +1,1 @@
-Download the latest rpm for atom and for fritzing
+Download the latest rpm for atom

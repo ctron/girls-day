@@ -48,7 +48,9 @@ hunspell-en
 -gnome-boxes
 -libreoffice-*
 -unoconv
-
+-ModemManager
+-NetworkManager-wwan
+-NetworkManager-bluetooth
 
 %end
 
@@ -56,6 +58,8 @@ hunspell-en
 #touch $INSTALL_ROOT/this-is-install-root
 #touch $LIVE_ROOT/this-is-live-root
 cp /root/fedora-girlsday-respin/redhat_girlsday_2020.png $INSTALL_ROOT/usr/share/backgrounds/
+cp /root/fedora-girlsday-respin/99-platformio-udev.rules $INSTALL_ROOT/etc/udev/rules.d/
+cp /root/fedora-girlsday-respin/99-platformio-udev.rules $INSTALL_ROOT/lib/udev/rules.d/
 cp /root/fedora-girlsday-respin/platformio-ide.tar.gz $INSTALL_ROOT/root/
 %end
 
@@ -198,6 +202,38 @@ EOF3
 
 #Euer Red Hat Girls Day Team
 #EOF5
+
+mkdir -p /home/girlsday/.local/share/applications/
+cat << EOF6 > /home/girlsday/.local/share/applications/atom.desktop
+[Desktop Entry]
+Name=Atom
+Comment=A hackable text editor for the 21st Century.
+GenericName=Text Editor
+Exec=/usr/bin/atom %F
+Icon=atom
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Utility;TextEditor;Development;
+MimeType=text/plain;
+StartupWMClass=atom
+EOF6
+
+mkdir -p /home/girlsday/.local/share/keyrings/
+cat << EOF7 > /home/girlsday/.local/share/keyrings/default
+Standard-Schlüsselbund
+EOF7
+
+cat << EOF8 > /home/girlsday/.local/share/keyrings/Standard-Schlüsselbund.keyring
+[keyring]
+display-name=Standard-Schlüsselbund
+ctime=1582716630
+mtime=0
+lock-on-idle=false
+lock-after=false
+EOF8
+
+chmod 644 /home/girlsday/.local/share/keyrings/default
+chmdo 600 /home/girlsday/.local/share/keyrings/Standard-Schlüsselbund.keyring
 
 EOF
 
